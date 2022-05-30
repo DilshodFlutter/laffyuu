@@ -21,7 +21,10 @@ class CategoryWidget extends StatelessWidget {
       width: width,
       child: Column(
         children: [
+          const SizedBox(width: 16,),
           Container(
+          //  margin: const EdgeInsets.only(left: 16.0),
+            padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
                 border: Border.all(width: 1.0, color: AppColor.light),
                 borderRadius: BorderRadius.circular(35.0)),

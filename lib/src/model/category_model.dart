@@ -58,11 +58,11 @@ class GenderTypeClass {
   });
 
   int id;
-  int genderType;
+  String genderType;
 
   factory GenderTypeClass.fromJson(Map<String, dynamic> json) =>
       GenderTypeClass(
         id: json["id"] ?? 0,
-        genderType: json["gender_type"] ?? 0,
+        genderType: json["gender_type"] ?? "",
       );
 }

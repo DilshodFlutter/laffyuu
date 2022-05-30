@@ -62,38 +62,45 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         CategoryModel data = snapshot.data!;
+                        return Container(
+                          margin: const EdgeInsets.only(left: 16),
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: data.results.length,
+                              itemBuilder: (context, index) {
+                                return CategoryWidget(
+                                  data: data.results[index],
+                                  width: 70.0,
+                                  margin: const EdgeInsets.only(right: 16.0),
+                                );
+                              }),
+                        );
+                      }
+                      return const Center(
+                          child: CircularProgressIndicator.adaptive());
+                    })),
+            SeeMoreWidget(
+                leftText: "Flash Sale",
+                rightText: "See More",
+                rightOnTap: () {}),
+            SizedBox(
+                height: 300,
+                child: StreamBuilder<ProductModel>(
+                    stream: productBlock.getProduct,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        ProductModel data = snapshot.data!;
                         return ListView.builder(
-                            padding: const EdgeInsets.only(bottom: 24, top: 12),
                             scrollDirection: Axis.horizontal,
+                          //  shrinkWrap: true,
                             itemCount: data.results.length,
                             itemBuilder: (context, index) {
-                              return CategoryWidget(
-                                data: data.results[index],
-                                width: 70.0,
-                                margin: const EdgeInsets.only(right: 16.0),
-                              );
+                              return ProductWidget(data: data.results[index]);
                             });
                       }
                       return const Center(
                           child: CircularProgressIndicator.adaptive());
                     })),
-            // SizedBox(
-            //     height: 300,
-            //     child: StreamBuilder<ProductModel>(
-            //         stream: productBlock.getProduct,
-            //         builder: (context, snapshot) {
-            //           if (snapshot.hasData) {
-            //             ProductModel data = snapshot.data!;
-            //             return ListView.builder(
-            //                 scrollDirection: Axis.horizontal,
-            //                 itemCount: data.results.length,
-            //                 itemBuilder: (context, index) {
-            //                   return ProductWidget(data: data.results[index]);
-            //                 });
-            //           }
-            //           return const Center(
-            //               child: CircularProgressIndicator.adaptive());
-            //         }))
           ],
         ));
   }

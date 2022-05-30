@@ -15,7 +15,7 @@ class ProductWidget extends StatelessWidget {
       Image.network(data.images.image),
       Text(data.name),
       Text(data.price.toString()),
-      Text(data.discountPrice.toString())
+      Text(data.discountPrice.toString()),
       ],
     ),);
   }
