@@ -25,10 +25,11 @@ class AppProvider {
 
   Future<ProductModel> getProduct() async {
     String url = baseUrl + "product";
-    print(url);
+
     http.Response response = await http.get(Uri.parse(url));
+
     final productModel = ProductModel.fromJson(json.decode(response.body));
-    print(response.statusCode);
+
     return productModel;
   }
 }

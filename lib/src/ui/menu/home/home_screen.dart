@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     homeBlock.allSuperFlash();
     categoryBlock.allCategoryModel();
-    productBlock.allProductModel();
+    productBlock.allProductFlashSale();
     super.initState();
   }
 
@@ -55,8 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 leftText: "Category",
                 rightText: "More Category",
                 rightOnTap: () {}),
+            const SizedBox(height: 12.0),
             SizedBox(
-                height: 80,
+                height: 108,
                 child: StreamBuilder<CategoryModel>(
                     stream: categoryBlock.getCategory,
                     builder: (context, snapshot) {
@@ -79,28 +80,61 @@ class _HomeScreenState extends State<HomeScreen> {
                       return const Center(
                           child: CircularProgressIndicator.adaptive());
                     })),
+            const SizedBox(height: 24.0,),
             SeeMoreWidget(
                 leftText: "Flash Sale",
                 rightText: "See More",
                 rightOnTap: () {}),
             SizedBox(
-                height: 300,
-                child: StreamBuilder<ProductModel>(
-                    stream: productBlock.getProduct,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        ProductModel data = snapshot.data!;
-                        return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                          //  shrinkWrap: true,
-                            itemCount: data.results.length,
-                            itemBuilder: (context, index) {
-                              return ProductWidget(data: data.results[index]);
-                            });
-                      }
-                      return const Center(
-                          child: CircularProgressIndicator.adaptive());
-                    })),
+              height: 274,
+              child: StreamBuilder<ProductModel>(
+                stream: productBlock.getProductFlashSale,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    ProductModel data = snapshot.data!;
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: data.results.length,
+                      itemBuilder: (context, index) {
+                        return ProductWidget(
+                          data: data.results[index],
+                        );
+                      },
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                },
+              ),
+            ),
+            SeeMoreWidget(
+                leftText: "Mega Sale",
+                rightText: "See More",
+                rightOnTap: () {}),
+            SizedBox(
+              height: 274,
+              child: StreamBuilder<ProductModel>(
+                stream: productBlock.getProductFlashSale,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    ProductModel data = snapshot.data!;
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: data.results.length,
+                      itemBuilder: (context, index) {
+                        return ProductWidget(
+                          data: data.results[index],
+                        );
+                      },
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                },
+              ),
+            ),
           ],
         ));
   }

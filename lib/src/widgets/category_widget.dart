@@ -20,16 +20,30 @@ class CategoryWidget extends StatelessWidget {
       margin: margin,
       width: width,
       child: Column(
+      //  crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(width: 16,),
+          const SizedBox(
+            width: 16,
+          ),
           Container(
-          //  margin: const EdgeInsets.only(left: 16.0),
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
                 border: Border.all(width: 1.0, color: AppColor.light),
                 borderRadius: BorderRadius.circular(35.0)),
             child: Center(child: Image.network(data.image)),
           ),
+          const SizedBox(height: 8),
+          Text(
+            data.name,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                color: AppColor.grey,
+                fontSize: 10.0,
+                letterSpacing: 0.5,
+                fontWeight: FontWeight.w400,
+                fontFamily: AppColor.fontFamilyPoppins),
+            maxLines: 2,
+          )
         ],
       ),
     );

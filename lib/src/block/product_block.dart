@@ -4,13 +4,23 @@ import 'package:rxdart/subjects.dart';
 
 class ProductBlock {
   final _appProvider = AppProvider();
-  final _fetchProductModel = PublishSubject<ProductModel>();
+  final _fetchProductFlashSale = PublishSubject<ProductModel>();
 
-  Stream<ProductModel> get getProduct => _fetchProductModel.stream;
+  final _fetchProductFlashSale2 = PublishSubject<ProductModel>();
 
-  allProductModel() async {
+  Stream<ProductModel> get getProductFlashSale2 =>
+      _fetchProductFlashSale2.stream;
+
+  Stream<ProductModel> get getProductFlashSale => _fetchProductFlashSale.stream;
+
+  allProductFlashSale2() async {
+    ProductModel productModel2 = await _appProvider.getProduct();
+    _fetchProductFlashSale2.add(productModel2);
+  }
+
+  allProductFlashSale() async {
     ProductModel productModel = await _appProvider.getProduct();
-    _fetchProductModel.add(productModel);
+    _fetchProductFlashSale.add(productModel);
   }
 }
 

@@ -1,8 +1,3 @@
-import 'dart:convert';
-
-ProductModel productModelFromJson(String str) =>
-    ProductModel.fromJson(json.decode(str));
-
 class ProductModel {
   ProductModel({
     required this.count,
@@ -12,12 +7,15 @@ class ProductModel {
   int count;
   List<ProductResult> results;
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        count: json["count"] ?? 0,
-        results: json["result"] == null
-            ? <ProductResult>[]
-            : List<ProductResult>.from(json["results"].map((x) => ProductResult.fromJson(x))),
-      );
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
+      count: json["count"] ?? 0,
+      results: json["results"] == null
+          ? <ProductResult>[]
+          : List<ProductResult>.from(
+              json["results"].map((x) => ProductResult.fromJson(x))),
+    );
+  }
 }
 
 class ProductResult {
@@ -33,22 +31,24 @@ class ProductResult {
   int id;
   String name;
   int price;
-  int discountPrice;
-  Images images;
-  int reviewAvg;
+  double discountPrice;
+  ProductImages images;
+  double reviewAvg;
 
   factory ProductResult.fromJson(Map<String, dynamic> json) => ProductResult(
         id: json["id"] ?? 0,
         name: json["name"] ?? "",
         price: json["price"] ?? 0,
         discountPrice: json["discount_price"] ?? 0,
-        images: json["images"] ?? "",
+        images: json["images"] == null
+            ? ProductImages.fromJson({})
+            : ProductImages.fromJson(json["images"]),
         reviewAvg: json["review_avg"] ?? 0,
       );
 }
 
-class Images {
-  Images({
+class ProductImages {
+  ProductImages({
     required this.id,
     required this.image,
     required this.product,
@@ -58,7 +58,7 @@ class Images {
   String image;
   int product;
 
-  factory Images.fromJson(Map<String, dynamic> json) => Images(
+  factory ProductImages.fromJson(Map<String, dynamic> json) => ProductImages(
         id: json["id"] ?? 0,
         image: json["image"] ?? "",
         product: json["product"] ?? 0,

@@ -17,7 +17,12 @@ class SuperFlashWidget extends StatelessWidget {
             return Container(
               margin: const EdgeInsets.all(16.0),
               child: Stack(
-                children: [Image.network(data.results[index].image)],
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: Image.network(data.results[index].image,
+                          fit: BoxFit.cover))
+                ],
               ),
             );
           }),
