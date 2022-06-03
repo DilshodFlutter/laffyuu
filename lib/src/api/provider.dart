@@ -2,13 +2,14 @@ import 'dart:convert';
 
 import 'package:laffyuu/src/model/category_model.dart';
 import 'package:laffyuu/src/model/product_model.dart';
+import 'package:laffyuu/src/model/rec_product_model.dart';
 import 'package:laffyuu/src/model/super_flash_model.dart';
 import 'package:http/http.dart' as http;
 
 class AppProvider {
   static String baseUrl = "http://lafyuu.qtlms.uz/api/v1/";
 
-  Future<SuperFlashModel> getData() async {
+  Future<SuperFlashModel> getSuperFlash() async {
     String url = baseUrl + "superflash";
     http.Response response = await http.get(Uri.parse(url));
     final superFlashModel =
@@ -23,7 +24,27 @@ class AppProvider {
     return categoryModel;
   }
 
-  Future<ProductModel> getProduct() async {
+  Future<ProductModel> getProductFlashSale() async {
+    String url = baseUrl + "product?flash_sale=true";
+
+    http.Response response = await http.get(Uri.parse(url));
+
+    final productModel = ProductModel.fromJson(json.decode(response.body));
+
+    return productModel;
+  }
+
+  Future<ProductModel> getProductMegaSale() async {
+    String url = baseUrl + "product?mega_sale=true";
+
+    http.Response response = await http.get(Uri.parse(url));
+
+    final productModel = ProductModel.fromJson(json.decode(response.body));
+
+    return productModel;
+  }
+
+  Future<ProductModel> getProductHomeSale() async {
     String url = baseUrl + "product";
 
     http.Response response = await http.get(Uri.parse(url));
@@ -31,5 +52,13 @@ class AppProvider {
     final productModel = ProductModel.fromJson(json.decode(response.body));
 
     return productModel;
+  }
+
+  Future<RecProductModel> getRecProduct() async {
+    String url = baseUrl + "recomendedproduct";
+    http.Response response = await http.get(Uri.parse(url));
+    final recProductModel =
+        RecProductModel.fromJson(json.decode(response.body));
+    return recProductModel;
   }
 }

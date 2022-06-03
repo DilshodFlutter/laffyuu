@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:laffyuu/src/block/category_block.dart';
 import 'package:laffyuu/src/block/product_block.dart';
+import 'package:laffyuu/src/block/rec_product_block.dart';
 import 'package:laffyuu/src/block/super_flash_block.dart';
 import 'package:laffyuu/src/model/category_model.dart';
 import 'package:laffyuu/src/model/product_model.dart';
+import 'package:laffyuu/src/model/rec_product_model.dart';
 import 'package:laffyuu/src/model/super_flash_model.dart';
 import 'package:laffyuu/src/widgets/app_bar_widget.dart';
 import 'package:laffyuu/src/widgets/category_widget.dart';
 import 'package:laffyuu/src/widgets/product_widget.dart';
+import 'package:laffyuu/src/widgets/rec_product_widget.dart';
 import 'package:laffyuu/src/widgets/see_more_widget.dart';
 import 'package:laffyuu/src/widgets/super_flash_widget.dart';
 
@@ -22,12 +25,15 @@ class _HomeScreenState extends State<HomeScreen> {
   SuperFlashModel? superFlashModel;
   CategoryModel? categoryModel;
   ProductModel? productModel;
+  RecProductModel? recProductModel;
 
   @override
   void initState() {
     homeBlock.allSuperFlash();
     categoryBlock.allCategoryModel();
     productBlock.allProductFlashSale();
+    productBlock.allProductMegaSale();
+    recProductBlock.allRecProduct();
     super.initState();
   }
 
@@ -40,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
                 height: 206,
                 child: StreamBuilder<SuperFlashModel>(
-                    stream: homeBlock.getData,
+                    stream: homeBlock.getSuperFlash,
                     builder: (context, snapshot) {
                       if (snapshot.hasData || superFlashModel != null) {
                         if (snapshot.hasData) {
@@ -80,7 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       return const Center(
                           child: CircularProgressIndicator.adaptive());
                     })),
-            const SizedBox(height: 24.0,),
+            const SizedBox(
+              height: 24.0,
+            ),
             SeeMoreWidget(
                 leftText: "Flash Sale",
                 rightText: "See More",
@@ -115,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 274,
               child: StreamBuilder<ProductModel>(
-                stream: productBlock.getProductFlashSale,
+                stream: productBlock.getProductMegaSale,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     ProductModel data = snapshot.data!;
@@ -135,6 +143,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
+            SizedBox(
+              height: 206,
+              child: StreamBuilder<RecProductModel>(
+                  stream: recProductBlock.getRecProduct,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      RecProductModel data = snapshot.data!;
+                      return ListView.builder(
+                          itemCount: data.results.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return RecProductWidget(data2: data.results[index]);
+                          });
+                    }
+                    return const Center(
+                        child: CircularProgressIndicator.adaptive());
+                  }),
+            )
           ],
         ));
   }

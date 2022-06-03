@@ -6,12 +6,14 @@ class SuperFlashBlock {
   final _appProvider = AppProvider();
   final _fetchSuperFlash = PublishSubject<SuperFlashModel>();
 
-  Stream<SuperFlashModel> get getData => _fetchSuperFlash.stream;
+  Stream<SuperFlashModel> get getSuperFlash => _fetchSuperFlash.stream;
+
 
   allSuperFlash() async {
-    SuperFlashModel superFlashModel = await _appProvider.getData();
+    SuperFlashModel superFlashModel = await _appProvider.getSuperFlash();
     _fetchSuperFlash.add(superFlashModel);
   }
+
 }
 
 final homeBlock = SuperFlashBlock();

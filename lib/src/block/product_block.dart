@@ -6,20 +6,19 @@ class ProductBlock {
   final _appProvider = AppProvider();
   final _fetchProductFlashSale = PublishSubject<ProductModel>();
 
-  final _fetchProductFlashSale2 = PublishSubject<ProductModel>();
+  final _fetchProductMegaSale = PublishSubject<ProductModel>();
 
-  Stream<ProductModel> get getProductFlashSale2 =>
-      _fetchProductFlashSale2.stream;
+  Stream<ProductModel> get getProductMegaSale => _fetchProductMegaSale.stream;
 
   Stream<ProductModel> get getProductFlashSale => _fetchProductFlashSale.stream;
 
-  allProductFlashSale2() async {
-    ProductModel productModel2 = await _appProvider.getProduct();
-    _fetchProductFlashSale2.add(productModel2);
+  allProductMegaSale() async {
+    ProductModel productModel2 = await _appProvider.getProductMegaSale();
+    _fetchProductMegaSale.add(productModel2);
   }
 
   allProductFlashSale() async {
-    ProductModel productModel = await _appProvider.getProduct();
+    ProductModel productModel = await _appProvider.getProductFlashSale();
     _fetchProductFlashSale.add(productModel);
   }
 }
