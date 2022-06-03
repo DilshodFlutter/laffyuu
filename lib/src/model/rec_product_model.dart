@@ -10,7 +10,7 @@ class RecProductModel {
   factory RecProductModel.fromJson(Map<String, dynamic> json) =>
       RecProductModel(
         count: json["count"] ?? 0,
-        results: json["results"]
+        results: json["results"] == null
             ? <RecProductResult>[]
             : List<RecProductResult>.from(
                 json["results"].map((x) => RecProductResult.fromJson(x))),

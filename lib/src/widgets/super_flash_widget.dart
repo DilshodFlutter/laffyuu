@@ -20,8 +20,11 @@ class SuperFlashWidget extends StatelessWidget {
                 children: [
                   ClipRRect(
                       borderRadius: BorderRadius.circular(5.0),
-                      child: Image.network(data.results[index].image,
-                          fit: BoxFit.cover))
+                      child: Image.network(
+                        data.results[index].image,
+                        width: MediaQuery.of(context).size.width - 32.0,
+                        fit: BoxFit.cover,
+                      )),
                 ],
               ),
             );

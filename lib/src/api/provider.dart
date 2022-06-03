@@ -61,4 +61,11 @@ class AppProvider {
         RecProductModel.fromJson(json.decode(response.body));
     return recProductModel;
   }
+
+  Future<ProductModel> getGridProduct() async {
+    String url = baseUrl + "product";
+    http.Response response = await http.get(Uri.parse(url));
+    final productModel = ProductModel.fromJson(json.decode(response.body));
+    return productModel;
+  }
 }

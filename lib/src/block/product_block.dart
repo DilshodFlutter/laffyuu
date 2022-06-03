@@ -5,7 +5,6 @@ import 'package:rxdart/subjects.dart';
 class ProductBlock {
   final _appProvider = AppProvider();
   final _fetchProductFlashSale = PublishSubject<ProductModel>();
-
   final _fetchProductMegaSale = PublishSubject<ProductModel>();
 
   Stream<ProductModel> get getProductMegaSale => _fetchProductMegaSale.stream;

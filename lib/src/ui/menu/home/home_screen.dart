@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(
-              height: 206,
+              height: 206.0,
               child: StreamBuilder<RecProductModel>(
                   stream: recProductBlock.getRecProduct,
                   builder: (context, snapshot) {
@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const Center(
                         child: CircularProgressIndicator.adaptive());
                   }),
-            )
+            ),
           ],
         ));
   }
